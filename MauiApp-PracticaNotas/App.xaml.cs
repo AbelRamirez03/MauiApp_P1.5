@@ -17,14 +17,6 @@ namespace MauiApp_PracticaNotas
             RegistrarEvento("Constructor", "App inicializada");
         }
 
-        // ============================================
-        // EVENTOS DEL CICLO DE VIDA A NIVEL APLICACIÓN
-        // (Requisito 2 - Mostrar cambios de estado)
-        // ============================================
-
-        /// <summary>
-        /// Se ejecuta cuando la aplicación inicia por primera vez
-        /// </summary>
         protected override void OnStart()
         {
             base.OnStart();
@@ -97,16 +89,7 @@ namespace MauiApp_PracticaNotas
             _estadosAppCambiados = Preferences.Get("app_estados_cambiados", _estadosAppCambiados);
         }
 
-        // NOTA: OnUnhandledException no está disponible en todas las versiones de MAUI
-        // Para manejo de excepciones, considera usar try-catch en métodos críticos
 
-        // ============================================
-        // MÉTODOS AUXILIARES
-        // ============================================
-
-        /// <summary>
-        /// Escribe en la consola de debug con formato consistente
-        /// </summary>
         private void LogToConsole(string mensaje)
         {
             var timestamp = DateTime.Now.ToString("HH:mm:ss.fff");

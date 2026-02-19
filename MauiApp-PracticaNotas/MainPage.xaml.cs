@@ -7,39 +7,17 @@ namespace MauiApp_PracticaNotas
 {
     public partial class MainPage : ContentPage
     {
-        // ============================================
         // VARIABLES ORIGINALES
-        // ============================================
         private bool isMenuOpen = false;
 
-        // ============================================
-        // VARIABLES DE ESTADO (Requisito 3)
-        // ============================================
-
-        /// <summary>
-        /// Contador de notas creadas en esta sesión
-        /// Se preserva entre cambios de estado
-        /// </summary>
         private int _notasCreadas = 0;
 
-        /// <summary>
-        /// Contador de veces que se abrió el menú
-        /// </summary>
         private int _vecesMenuAbierto = 0;
 
-        /// <summary>
-        /// Timestamp de la última interacción del usuario
-        /// </summary>
         private DateTime _ultimaInteraccion = DateTime.Now;
 
-        /// <summary>
-        /// Número de cambios de estado de la aplicación
-        /// </summary>
         private int _cambiosDeEstado = 0;
 
-        /// <summary>
-        /// Indica si hay datos sin guardar (draft)
-        /// </summary>
         private bool _hayDatosSinGuardar = false;
 
         public MainPage()
@@ -50,14 +28,6 @@ namespace MauiApp_PracticaNotas
             LogToConsole("📱 CONSTRUCTOR - MainPage creada");
         }
 
-        // ============================================
-        // EVENTOS DEL CICLO DE VIDA (Requisito 2 y 4)
-        // ============================================
-
-        /// <summary>
-        /// Se llama cuando la página está a punto de aparecer
-        /// AQUÍ RECUPERAMOS EL ESTADO GUARDADO
-        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -67,20 +37,12 @@ namespace MauiApp_PracticaNotas
             LogToConsole("👁️ OnAppearing - La página está apareciendo");
             RegistrarEvento("OnAppearing", $"Página visible (Cambio #{_cambiosDeEstado})");
 
-            // RECUPERAR ESTADO GUARDADO (Requisito 4)
+            // RECUPERAR ESTADO GUARDADO
             RecuperarEstadoGuardado();
 
             // Cargar notas como antes
             LoadNotes();
-
-            // Actualizar el título con estadísticas
-            ActualizarTituloConEstadisticas();
         }
-
-        /// <summary>
-        /// Se llama cuando la página desaparece
-        /// AQUÍ GUARDAMOS EL ESTADO
-        /// </summary>
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -91,10 +53,6 @@ namespace MauiApp_PracticaNotas
             // Guardar estado antes de desaparecer
             GuardarEstadoActual();
         }
-
-        /// <summary>
-        /// Se llama al navegar a esta página
-        /// </summary>
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             base.OnNavigatedTo(args);
@@ -102,10 +60,6 @@ namespace MauiApp_PracticaNotas
             LogToConsole("➡️ OnNavigatedTo - Navegación completada");
             RegistrarEvento("OnNavigatedTo", "Usuario llegó a la pantalla principal");
         }
-
-        /// <summary>
-        /// Se llama cuando el usuario está saliendo de esta página
-        /// </summary>
         protected override void OnNavigatingFrom(NavigatingFromEventArgs args)
         {
             base.OnNavigatingFrom(args);
@@ -123,13 +77,10 @@ namespace MauiApp_PracticaNotas
             }
         }
 
-        // ============================================
-        // GESTIÓN DE ESTADO (Requisito 3 y 4)
-        // ============================================
-
         /// <summary>
         /// Guarda el estado actual usando Preferences
         /// </summary>
+        /// 
         private void GuardarEstadoActual()
         {
             try
@@ -213,19 +164,12 @@ namespace MauiApp_PracticaNotas
             }
         }
 
-        /// <summary>
-        /// Actualiza el título con las estadísticas de uso
-        /// </summary>
         private void ActualizarTituloConEstadisticas()
         {
             // Podrías agregar un Label para mostrar estadísticas
             // Por ahora solo lo registramos en consola
             LogToConsole($"📊 Estadísticas - Notas: {_notasCreadas}, Menú abierto: {_vecesMenuAbierto}x");
         }
-
-        // ============================================
-        // REGISTRO Y LOGS (Requisito 2)
-        // ============================================
 
         /// <summary>
         /// Registra un evento en consola con formato
@@ -244,10 +188,6 @@ namespace MauiApp_PracticaNotas
             var timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
             Debug.WriteLine($"[NOTAS APP] {timestamp} - {mensaje}");
         }
-
-        // ============================================
-        // MÉTODOS ORIGINALES MEJORADOS
-        // ============================================
 
         private async void OnSaveClicked(object sender, EventArgs e)
         {
@@ -416,10 +356,6 @@ namespace MauiApp_PracticaNotas
             await Navigation.PushAsync(new TrashPage());
         }
 
-        // ============================================
-        // MONITOREO DE CAMBIOS EN CAMPOS (Nuevo)
-        // ============================================
-
         /// <summary>
         /// Detecta cuando el usuario escribe en el campo
         /// Podrías conectar esto con el evento TextChanged del Entry
@@ -436,10 +372,6 @@ namespace MauiApp_PracticaNotas
             }
         }
     }
-
-    // ============================================
-    // CONVERTIDORES ORIGINALES (Sin cambios)
-    // ============================================
 
     public class UrgentColorConverter : IValueConverter
     {
